@@ -1,9 +1,18 @@
+using System;
 using UnityEngine;
 
 public class Rotate : MonoBehaviour
 {
     [SerializeField]
     private  float _RotateSpeed = 5;
+
+    public Boolean _isRotating = true;
+
+    public bool IsRotating
+    {
+        get { return _isRotating; }
+        set { _isRotating = value ;}
+    }
     void Start()
     {
         
@@ -12,6 +21,16 @@ public class Rotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.Rotate (0f, _RotateSpeed * Time.deltaTime,0f);
+        RotateWeapon();
+
+
+    }
+
+    private void RotateWeapon()
+    {
+        if (_isRotating)
+        {
+            gameObject.transform.Rotate(0f, _RotateSpeed * Time.deltaTime,0f);
+        }
     }
 }

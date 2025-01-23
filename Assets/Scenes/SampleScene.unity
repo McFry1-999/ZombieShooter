@@ -555,6 +555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gunsa4
       objectReference: {fileID: 0}
+    - target: {fileID: 2476325253051088841, guid: 35acc59736344be4f9b4cdbcf1acf6e1, type: 3}
+      propertyPath: _isRotating
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8323144661374952703, guid: 35acc59736344be4f9b4cdbcf1acf6e1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.435135
