@@ -29,5 +29,6 @@ public class GetWeapon : MonoBehaviour
         weapon.localRotation = Quaternion.identity;
         weapon.localPosition = Vector3.zero;
         _weapon = weapon.GetComponent<Gun>();
+        _weapon.PickUpWeapon();
     }
 }
