@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GetWeapon : MonoBehaviour
@@ -11,6 +12,14 @@ public class GetWeapon : MonoBehaviour
     [SerializeField]
 
     private Transform _gunPivot;
+
+    private UIController _uiController;
+
+    private void Start()
+    {
+        _uiController = gameObject.GetComponent<UIController>();
+        _uiController.ShowBulletUI(false)
+;    }
 
     void OnTriggerEnter(Collider other)
     
@@ -29,6 +38,15 @@ public class GetWeapon : MonoBehaviour
         weapon.localRotation = Quaternion.identity;
         weapon.localPosition = Vector3.zero;
         _weapon = weapon.GetComponent<Gun>();
-        _weapon.PickUpWeapon();
+        _weapon.PickUpWeapon(this);
+        gameObject.GetComponent<UIController>().ShowBulletUI(true);
+    }
+
+
+    public void RemoveWeapon()
+    {
+        Destroy(_weapon.gameObject);
+        _weapon = null;
+        gameObject.GetComponent<UIController>().ShowBulletUI(false);
     }
 }

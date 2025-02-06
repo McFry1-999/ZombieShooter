@@ -1,5 +1,6 @@
 using UnityEngine;
-using  UnityEngine.UI;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Gun : MonoBehaviour
 {
@@ -22,16 +23,36 @@ public class Gun : MonoBehaviour
     private int _currentBulletNumber = 0;
     private Text _bulletText;
 
+    private GetWeapon _getWeapon;
+
+
+    private void RemoveWeapon()
+        {
+            _getWeapon.RemoveWeapon();
+            _getWeapon = null;
+        }
+    
     public void Shoot()
     {
+
+        if(_currentBulletNumber == 0)
+        {
+            if(_totalbulletNumber == 0)
+            {
+                RemoveWeapon();
+            }
+            return;
+        }
+
         _weaponAnimator.Play("Shoot", -1, 0f);
         GameObject.Instantiate(_bullet, _bulletPivot.position, _bulletPivot.rotation);
         _currentBulletNumber--;
          UpdateBulletText();
     }
 
-    public void PickUpWeapon()
+    public void PickUpWeapon(GetWeapon getWeapon)
     {
+        _getWeapon = getWeapon;
         _totalbulletNumber = _maxBulletNumber;
         _currentBulletNumber = _cartridgeBulletNumber;
 
@@ -45,16 +66,24 @@ public class Gun : MonoBehaviour
 
     public void Reload()
     {
+        if(_currentBulletNumber == _cartridgeBulletNumber || _totalbulletNumber == 0)
+        {
+            return;
+        }
+
+        int bulletNeeded = _cartridgeBulletNumber - _currentBulletNumber;
         if(_totalbulletNumber >= _cartridgeBulletNumber)
         {
-            _currentBulletNumber = _cartridgeBulletNumber;
-
-        } else if (_totalbulletNumber > 0)
+            _currentBulletNumber = bulletNeeded;
+        }
+        else if (_totalbulletNumber > 0)
         {
             _currentBulletNumber = _totalbulletNumber;
         }
         _totalbulletNumber -= _cartridgeBulletNumber;
         UpdateBulletText();
+
+         _weaponAnimator.Play("Reload");
 
     }
 
@@ -62,7 +91,7 @@ public class Gun : MonoBehaviour
     {
         if(_bulletText == null)
         {
-            _bulletText = GameObject.Find("BulletText").GetComponent<Text>();
+            _bulletText = _getWeapon.GetComponent<UIController>().BulletsText;
         }
         _bulletText.text = _currentBulletNumber + "/" + _totalbulletNumber;
 
