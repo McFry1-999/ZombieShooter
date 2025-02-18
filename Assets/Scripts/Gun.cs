@@ -45,7 +45,7 @@ public class Gun : MonoBehaviour
         }
 
         SoundManager.instance.Play("Shoot");
-        _weaponAnimator.Play("Shoot", -1, 0f);
+        _weaponAnimator.Play("G_Shoot 0", -1, 0f);
         GameObject.Instantiate(_bullet, _bulletPivot.position, _bulletPivot.rotation);
         _currentBulletNumber--;
          UpdateBulletText();
@@ -86,7 +86,7 @@ public class Gun : MonoBehaviour
         _totalbulletNumber -= _cartridgeBulletNumber;
         UpdateBulletText();
 
-         _weaponAnimator.Play("Reload");
+         _weaponAnimator.Play("GReload");
 
     }
 

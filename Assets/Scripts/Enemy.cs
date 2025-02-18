@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
         Vector3 direction = (objective.position - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(direction);
+        SoundManager.instance.Play("Follow");
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -44,5 +46,8 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
+        SoundManager.instance.Play("Die");
+
+
     }
 }
