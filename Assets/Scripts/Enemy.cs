@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
         Vector3 direction = (objective.position - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(direction);
-        SoundManager.instance.Play("Follow");
+        
 
     }
 
@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
         {
             health.TakeDamage(collision.gameObject.GetComponent<bULLET>().Damage);
             Destroy(collision.gameObject);
+            SoundManager.instance.Play("Disparo");
         }
 
     }
